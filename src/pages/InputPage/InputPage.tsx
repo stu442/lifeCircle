@@ -84,7 +84,8 @@ export default function InputPage() {
     <div className="container mx-auto px-4 py-8 max-w-2xl">
       <h1 className="text-3xl font-bold mb-2">이번 주를 어떻게 보내셨나요?</h1>
       <p className="text-gray-600 mb-8">
-        이번 주를 어떻게 보내셨는지 알려주세요. 남은 시간을 알려드릴게요.
+        이번 주를 어떻게 보내셨는지 알려주세요. 여러분의 인생의 남은 시간을
+        알려드릴게요!
       </p>
 
       <div className="space-y-6">
