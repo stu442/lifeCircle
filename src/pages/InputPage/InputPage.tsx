@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Eye, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { CategoryItem } from "@/pages/InputPage/components/CategoryItem";
 import { AddCategoryDialog } from "@/pages/InputPage/components/AddCategoryDialog";
@@ -141,10 +141,7 @@ export default function InputPage() {
         )}
       </div>
 
-      <div className="mt-8 flex justify-between">
-        <Button variant="outline">
-          <Eye className="mr-2 h-4 w-4" /> 미리보기
-        </Button>
+      <div className="mt-8 flex justify-end">
         <Button disabled={totalTime > 168}>
           다음 <ArrowRight className="ml-2 h-4 w-4" />
         </Button>
