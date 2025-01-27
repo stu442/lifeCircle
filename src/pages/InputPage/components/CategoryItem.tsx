@@ -3,6 +3,7 @@ import { Slider } from "@/components/ui/slider";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
+import { CategoryIcon } from "./CategoryIcon";
 
 interface CategoryItemProps {
   category: Category;
@@ -17,12 +18,7 @@ export function CategoryItem({
 }: CategoryItemProps) {
   return (
     <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4 category-item">
-      <div
-        className="w-8 h-8 flex items-center justify-center rounded-full"
-        style={{ backgroundColor: category.color }}
-      >
-        {category.icon}
-      </div>
+      <CategoryIcon icon={category.icon} color={category.color} />
 
       <div className="flex-grow w-full sm:w-auto">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2">
