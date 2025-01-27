@@ -11,6 +11,10 @@ import {
   calculateTotalTime,
   calculateFreeTime,
 } from "@/utils/timeCalculations";
+import { setCategoriesTime, toggleCategoryDaily } from "@/features/category/utils";
+import { useNavigate } from "react-router-dom";
+import Title from "@/components/title";
+import Layout from "@/components/Layout";
 
 /**
  * 주간 시간 입력 페이지 컴포넌트입니다.
@@ -27,6 +31,7 @@ export default function InputPage() {
   });
   const [isAddingCategory, setIsAddingCategory] = useState(false);
   const [freeTime, setFreeTime] = useState(30);
+  const navigate = useNavigate();
 
   const totalTime = calculateTotalTime(categories);
 
@@ -36,29 +41,23 @@ export default function InputPage() {
 
   /**
    * 특정 카테고리의 시간을 변경합니다.
+   * @param {Category[]} categories - 카테고리 배열
    * @param {number} index - 변경할 카테고리의 인덱스
    * @param {number} newTime - 새로운 시간 값
    */
-  const handleTimeChange = (index: number, newTime: number) => {
-    const updatedCategories = [...categories];
-    updatedCategories[index].time = newTime;
+  const handleTimeChange = (categories: Category[], index: number, newTime: number) => {
+    const updatedCategories = setCategoriesTime(categories, index, newTime);
     setCategories(updatedCategories);
   };
 
   /**
    * 특정 카테고리의 시간 단위(일/주)를 토글합니다.
    * 단위가 변경될 때 시간 값도 자동으로 변환됩니다.
+   * @param {Category[]} categories - 카테고리 배열
    * @param {number} index - 변경할 카테고리의 인덱스
    */
-  const handleToggleDaily = (index: number) => {
-    const updatedCategories = [...categories];
-    const category = updatedCategories[index];
-    category.isDaily = !category.isDaily;
-    if (category.isDaily) {
-      category.time = Math.round(category.time / 7);
-    } else {
-      category.time = category.time * 7;
-    }
+  const handleToggleDaily = (categories: Category[], index: number) => {
+    const updatedCategories = toggleCategoryDaily(categories, index);
     setCategories(updatedCategories);
   };
 
@@ -80,21 +79,22 @@ export default function InputPage() {
     }
   };
 
+  const handleNext = () => {
+    const encodedCategories = encodeURIComponent(JSON.stringify(categories));
+    navigate(`/result?categories=${encodedCategories}`);
+  }
+
   return (
-    <div className="container mx-auto px-4 py-8 max-w-2xl">
-      <h1 className="text-3xl font-bold mb-2">이번 주를 어떻게 보내셨나요?</h1>
-      <p className="text-gray-600 mb-8">
-        이번 주를 어떻게 보내셨는지 알려주세요. 여러분의 인생의 남은 시간을
-        알려드릴게요!
-      </p>
+    <Layout>
+      <Title title="이번 주를 어떻게 보내셨나요?" subTitle="이번 주를 어떻게 보내셨는지 알려주세요. 여러분의 인생의 남은 시간을 알려드릴게요!" />
 
       <div className="space-y-6">
         {categories.map((category, index) => (
           <CategoryItem
             key={index}
             category={category}
-            onTimeChange={(newTime) => handleTimeChange(index, newTime)}
-            onToggleDaily={() => handleToggleDaily(index)}
+            onTimeChange={(newTime) => handleTimeChange(categories, index, newTime)}
+            onToggleDaily={() => handleToggleDaily(categories, index)}
           />
         ))}
 
@@ -143,10 +143,10 @@ export default function InputPage() {
       </div>
 
       <div className="mt-8 flex justify-end">
-        <Button disabled={totalTime > 168}>
+        <Button disabled={totalTime > 168} onClick={handleNext}>
           다음 <ArrowRight className="ml-2 h-4 w-4" />
         </Button>
       </div>
-    </div>
+    </Layout>
   );
 }
