@@ -55,7 +55,7 @@ export function CategoryItem({
           max={category.isDaily ? 24 : 168}
           step={1}
           value={category.time}
-          onChange={(e) => onTimeChange(parseInt(e.target.value) || 0)}
+          onChange={(e) => onTimeChange(parseInt(e.target.value))}
           className="w-16 text-right"
         />
         <span className="text-sm text-gray-500">
