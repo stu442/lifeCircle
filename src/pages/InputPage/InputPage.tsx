@@ -13,7 +13,7 @@ import {
 } from "@/utils/timeCalculations";
 import { setCategoriesTime, toggleCategoryDaily } from "@/features/category/utils";
 import { useNavigate } from "react-router-dom";
-import Title from "@/components/title";
+import Title from "@/components/Title";
 import Layout from "@/components/Layout";
 
 /**

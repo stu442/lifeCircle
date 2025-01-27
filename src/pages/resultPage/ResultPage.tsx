@@ -1,5 +1,5 @@
 import Layout from "@/components/Layout";
-import Title from "@/components/title";
+import Title from "@/components/Title";
 import { useLocation } from "react-router-dom";
 
 export function ResultPage() {
