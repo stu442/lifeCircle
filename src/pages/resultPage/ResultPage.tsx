@@ -3,7 +3,7 @@ import Title from "@/components/Title";
 import { useLocation } from "react-router-dom";
 import { CategoryIcon } from "../InputPage/components/CategoryIcon";
 import { Category } from "@/types/category";
-import { calculateCategoryMonthlyTime, calculateLifetimeMonths, calculateRemainingMonths } from "@/features/result/utils";
+import { calculateCategoryMonthlyTime, calculateLifetimeMonths, calculateRemainingMonths, monthToYear } from "@/features/result/utils";
 
 const LIFE_EXPECTANCY = 100;
 
@@ -55,27 +55,41 @@ export function ResultPage() {
           />
         ))}
       </div>
+      <div className="mt-6 p-4 bg-gray-50 rounded-lg">
+        <h3 className="font-semibold text-lg mb-2">시간 투자에 대한 메시지</h3>
+        <p className="text-gray-600 leading-relaxed">
+              아직 {monthToYear(remainingMonths - totalUsedMonths)}년이라는 시간이 남아있습니다.
+              이 소중한 시간을 어떻게 채워나가고 싶으신가요? 
+              지금 생각하신 시간 투자로 더 풍요로운 삶을 만들어가시길 바랍니다.
+        </p>
+      </div>
       <div className="flex flex-col gap-4 mt-6">
         <div className="bg-gray-50 p-4 rounded-lg">
           <div className="grid grid-cols-2 gap-4">
             <div className="bg-white p-4 rounded-lg shadow-sm">
               <p className="text-gray-600 text-sm">앞으로 사용할 시간</p>
-              <p className="text-2xl font-bold">{totalUsedMonths}개월</p>
+              <div>
+                <p className="text-2xl font-bold">{totalUsedMonths}개월</p>
+                <p className="text-sm text-gray-500">약 {monthToYear(totalUsedMonths)}년</p>
+              </div>
             </div>
             <div className="bg-white p-4 rounded-lg shadow-sm">
               <p className="text-gray-600 text-sm">자유롭게 사용할 수 있는 시간</p>
-              <p className="text-2xl font-bold">{remainingMonths - totalUsedMonths}개월</p>
+              <div>
+                <p className="text-2xl font-bold">{remainingMonths - totalUsedMonths}개월</p>
+                <p className="text-sm text-gray-500">약 {monthToYear(remainingMonths - totalUsedMonths)}년</p>
+              </div>
             </div>
           </div>
         </div>
         
         <div className="bg-white p-4 rounded-lg shadow-sm">
-          <h3 className="font-semibold text-lg mb-4">카테고리별 시간 계획</h3>
+          <h3 className="font-semibold text-lg mb-4">유형별 시간 소비량</h3>
           <div className="space-y-3">
             {categoryMonths.map(category => (
               <div 
                 key={category.name} 
-                className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors"
+                className="flex items-center gap-3 p-3 rounded-lg bg-gray-50"
               >
                 <CategoryIcon 
                   icon={category.icon} 
@@ -86,9 +100,10 @@ export function ResultPage() {
                     <span className="font-medium">{category.name}</span>
                     <span className="font-semibold">{category.months}개월</span>
                   </div>
-                  <p className="text-gray-500 text-sm">
-                    일주일에 {category.isDaily ? category.time * 7 : category.time}시간씩 투자
-                  </p>
+                  <div className="flex items-center justify-between text-sm text-gray-500 mt-1">
+                    <span>일주일에 {category.isDaily ? category.time * 7 : category.time}시간씩 투자</span>
+                    <span>약 {monthToYear(category.months)}년</span>
+                  </div>
                 </div>
               </div>
             ))}
