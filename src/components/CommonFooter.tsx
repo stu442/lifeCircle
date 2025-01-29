@@ -36,7 +36,7 @@ export function CommonFooter() {
           <Button
             variant="outline"
             onClick={() =>
-              window.open("https://forms.gle/yourGoogleFormLink", "_blank")
+              window.open("https://walla.my/v/ZHZ6MnhAnZyy2HLt5BHI", "_blank")
             }
           >
             <Mail className="mr-2 h-4 w-4" />
