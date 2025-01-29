@@ -32,7 +32,6 @@ export function CommonFooter() {
               <ThreadsIcon />
             </a>
           </div>
-          {/* TODO: 구글 폼 넣기 */}
           <Button
             variant="outline"
             onClick={() =>
