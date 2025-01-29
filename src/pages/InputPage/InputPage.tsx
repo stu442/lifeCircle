@@ -81,7 +81,8 @@ export default function InputPage() {
 
   const handleNext = () => {
     const encodedCategories = encodeURIComponent(JSON.stringify(categories));
-    navigate(`/result?categories=${encodedCategories}`);
+    const age = new URLSearchParams(window.location.search).get('age');
+    navigate(`/resultPage?categories=${encodedCategories}${age ? `&age=${age}` : ''}`);
   }
 
   return (

@@ -5,22 +5,21 @@ import { CategoryIcon } from "../InputPage/components/CategoryIcon";
 import { Category } from "@/types/category";
 import { calculateCategoryMonthlyTime, calculateLifetimeMonths, calculateRemainingMonths, monthToYear } from "@/features/result/utils";
 
-const LIFE_EXPECTANCY = 100;
-
-// 임시로 현재 나이 설정 (나중에 입력받을 수 있도록 수정 필요)
-const CURRENT_AGE = 30;
+const LIFE_EXPECTANCY = 80;
 
 export function ResultPage() {
   const { search } = useLocation();
-  const categories:Category[] = JSON.parse(decodeURIComponent(search.split('=')[1]));
-  const remainingMonths = calculateRemainingMonths(CURRENT_AGE, LIFE_EXPECTANCY);
+  const searchParams = new URLSearchParams(search);
+  const categories: Category[] = JSON.parse(decodeURIComponent(searchParams.get('categories') || '[]'));
+  const age = parseInt(searchParams.get('age') || '30');
+  const remainingMonths = calculateRemainingMonths(age, LIFE_EXPECTANCY);
 
   // 각 카테고리별 월 수 계산
   const categoryMonths = categories.map(category => ({
     ...category,
     months: calculateLifetimeMonths(
       calculateCategoryMonthlyTime(category),
-      LIFE_EXPECTANCY - CURRENT_AGE
+      LIFE_EXPECTANCY - age
     )
   }));
 

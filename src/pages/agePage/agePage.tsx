@@ -2,11 +2,13 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Layout from "@/components/Layout";
+import { useNavigate } from "react-router-dom";
 
 export default function AgeInputPage() {
   const [age, setAge] = useState<string>("");
   const [isValid, setIsValid] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const ageNum = parseInt(age);
@@ -25,8 +27,8 @@ export default function AgeInputPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (isValid) {
-      // TODO: age 전달해야함
-      console.log("Submitted age:", age);
+      const encodedAge = encodeURIComponent(age);
+      navigate(`/inputPage?age=${encodedAge}`);
     }
   };
 
