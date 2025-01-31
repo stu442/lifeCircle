@@ -13,12 +13,10 @@ export function CommonFooter() {
       <div className="container mx-auto max-w-2xl">
         <div className="flex justify-between items-center mb-4">
           <div>
-            <h3 className="text-lg font-semibold mb-2">개발자</h3>
             <img src={profile} alt="profile" className="w-16 h-16 rounded-full my-2"></img>
             <h4 className="text-base text-gray-600 font-bold mb-4">@dev_frogsoo</h4>
-            <p className="text-sm text-gray-600">
-              안녕하세요. 웹 개발자입니다.
-              더 나은 세상을 위해 웹 페이지를 만들고 있습니다.
+            <p className="text-sm text-gray-600 whitespace-pre-line">
+              {"안녕하세요. @dev_frogsoo입니다. \n스레드에서 활동하는 웹 개발자입니다.\n재미있는 웹페이지를 만듭니다."}
             </p>
           </div>
         </div>
